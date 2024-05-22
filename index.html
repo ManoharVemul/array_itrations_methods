@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        pre{
+            font-size: large;
+
+        }
+    </style>
+</head>
+<body>
+    <pre>
+<h1>Array Iteration Methods</h1>
+<h2>Foreach():</h2>
+
+The forEach() method is an iterative method. It calls a provided callbackFn function once for each element in an array in ascending-index order. Unlike map(), forEach() always returns undefined and is not chainable. The typical use case is to execute side effects at the end of a chain. Read the iterative methods section for more information about how these methods work in general.
+
+callbackFn is invoked only for array indexes which have assigned values. It is not invoked for empty slots in sparse arrays.
+
+The forEach() method is generic. It only expects the this value to have a length property and integer-keyed properties.
+
+There is no way to stop or break a forEach() loop other than by throwing an exception. If you need such behavior, the forEach() method is the wrong tool.
+
+Early termination may be accomplished with looping statements like for, for...of, and for...in. Array methods like every(), some(), find(), and findIndex() also stops iteration immediately when further iteration is not necessary.
+
+forEach() expects a synchronous function — it does not wait for promises. Make sure you are aware of the implications while using promises (or async functions) as forEach callbacks.
+<h3>Sytax</h3>
+forEach(callbackFn)
+forEach(callbackFn, thisArg)
+
+<h3>Parameters</h3>
+
+callbackFn
+A function to execute for each element in the array. Its return value is discarded. The function is called with the following arguments:
+
+element
+The current element being processed in the array.
+
+index
+The index of the current element being processed in the array.
+
+array
+The array forEach() was called upon.
+
+thisArg Optional
+A value to use as this when executing callbackFn. See iterative methods.
+
+<h3>Return value </h3>
+None (undefined).
+
+<h2>map()</h2>
+The map() method is an iterative method. It calls a provided callbackFn function once for each element in an array and constructs a new array from the results. Read the iterative methods section for more information about how these methods work in general.
+
+callbackFn is invoked only for array indexes which have assigned values. It is not invoked for empty slots in sparse arrays.
+
+The map() method is generic. It only expects the this value to have a length property and integer-keyed properties.
+
+Since map builds a new array, calling it without using the returned array is an anti-pattern; use forEach or for...of instead.
+<h3>Syntax</h3>
+
+map(callbackFn)
+map(callbackFn, thisArg)
+<h3>Parameters</h3>
+callbackFn
+A function to execute for each element in the array. Its return value is added as a single element in the new array. The function is called with the following arguments:
+
+element
+The current element being processed in the array.
+
+index
+The index of the current element being processed in the array.
+
+array
+The array map() was called upon.
+
+thisArg Optional
+A value to use as this when executing callbackFn. See iterative methods.
+
+<h3>Return value </h3>
+A new array with each element being the result of the callback function.
+  <h2>reduce()</h2>
+  The reduce() method is an iterative method. It runs a "reducer" callback function over all elements in the array, in ascending-index order, and accumulates them into a single value. Every time, the return value of callbackFn is passed into callbackFn again on next invocation as accumulator. The final value of accumulator (which is the value returned from callbackFn on the final iteration of the array) becomes the return value of reduce(). Read the iterative methods section for more information about how these methods work in general.
+
+callbackFn is invoked only for array indexes which have assigned values. It is not invoked for empty slots in sparse arrays.
+
+Unlike other iterative methods, reduce() does not accept a thisArg argument. callbackFn is always called with undefined as this, which gets substituted with globalThis if callbackFn is non-strict.
+
+reduce() is a central concept in functional programming, where it's not possible to mutate any value, so in order to accumulate all values in an array, one must return a new accumulator value on every iteration. This convention propagates to JavaScript's reduce(): you should use spreading or other copying methods where possible to create new arrays and objects as the accumulator, rather than mutating the existing one. If you decided to mutate the accumulator instead of copying it, remember to still return the modified object in the callback, or the next iteration will receive undefined. However, note that copying the accumulator may in turn lead to increased memory usage and degraded performance — see When to not use reduce() for more details. In such cases, to avoid bad performance and unreadable code, it's better to use a simple for loop instead.
+
+The reduce() method is generic. It only expects the this value to have a length property and integer-keyed properties.
+<h3>Sytax</h3>
+reduce(callbackFn)
+reduce(callbackFn, initialValue)
+<h3>Parameters</h3>
+callbackFn
+A function to execute for each element in the array. Its return value becomes the value of the accumulator parameter on the next invocation of callbackFn. For the last invocation, the return value becomes the return value of reduce(). The function is called with the following arguments:
+
+accumulator
+The value resulting from the previous call to callbackFn. On the first call, its value is initialValue if the latter is specified; otherwise its value is array[0].
+
+currentValue
+The value of the current element. On the first call, its value is array[0] if initialValue is specified; otherwise its value is array[1].
+
+currentIndex
+The index position of currentValue in the array. On the first call, its value is 0 if initialValue is specified, otherwise 1.
+
+array
+The array reduce() was called upon.
+
+initialValue Optional
+A value to which accumulator is initialized the first time the callback is called. If initialValue is specified, callbackFn starts executing with the first value in the array as currentValue. If initialValue is not specified, accumulator is initialized to the first value in the array, and callbackFn starts executing with the second value in the array as currentValue. In this case, if the array is empty (so that there's no first value to return as accumulator), an error is thrown.
+
+<h3>Return value </h3>
+The value that results from running the "reducer" callback function to completion over the entire array.
+<h2>filter()</h2>
+The filter() method is an iterative method. It calls a provided callbackFn function once for each element in an array, and constructs a new array of all the values for which callbackFn returns a truthy value. Array elements which do not pass the callbackFn test are not included in the new array. Read the iterative methods section for more information about how these methods work in general.
+
+callbackFn is invoked only for array indexes which have assigned values. It is not invoked for empty slots in sparse arrays.
+
+The filter() method is generic. It only expects the this value to have a length property and integer-keyed properties.
+<h3>Sytax</h3>
+filter(callbackFn)
+filter(callbackFn, thisArg)
+
+<h3>Parameters</h3>
+callbackFn
+A function to execute for each element in the array. It should return a truthy value to keep the element in the resulting array, and a falsy value otherwise. The function is called with the following arguments:
+
+element
+The current element being processed in the array.
+
+index
+The index of the current element being processed in the array.
+
+array
+The array filter() was called upon.
+
+thisArg Optional
+A value to use as this when executing callbackFn. See iterative methods.
+
+
+<h3>Return value </h3>
+A shallow copy of the given array containing just the elements that pass the test. If no elements pass the test, an empty array is returned.
+</pre>
+</body>
+</html>
